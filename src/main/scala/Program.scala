@@ -10,9 +10,9 @@ object Program {
   def main(args: Array[String]): Unit = {
     val world = new World(Color.CYAN)
 
-    world.objects = new Sphere(new Vector(-2.5, 0, 0), 2, Color.RED) :: new Sphere(new Vector(2.5, 0, 0), 2, Color.GREEN) :: new Sphere(new Vector(0, 0, 2.5), 2, Color.BLUE) :: world.objects
+    world.objects = new Sphere(new Vector(-4, 0, 0), 2, Color.RED) :: new Sphere(new Vector(4, 0, 0), 2, Color.GREEN) :: new Sphere(new Vector(0, 0, 3), 2, Color.BLUE) :: world.objects
 
-    val camera = new Orthogonal(new Vector(0, 0, -5), new Vector(0, 0, 0), new Vector2(5, 5), new Vector(0, 1, 0.29))
+    val camera = new Orthogonal(new Vector(0, 1, -8), new Vector(0, 0, 0), new Vector2(7, 7), new Vector(0, -1, 0))
 
     val tracer = new Raytracer()
 

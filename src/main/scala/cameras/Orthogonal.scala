@@ -16,7 +16,7 @@ class Orthogonal(var eyePosition: Vector, var lookAt: Vector, var cameraSize: Ve
 
     // Jak bardzo początek promienia jest oddalony od
     // położenia kamery
-    val position = eyePosition - (prostopadly * relativeLocation.x * cameraSize.x + up * relativeLocation.y * cameraSize.y)
+    val position = eyePosition + (prostopadly * relativeLocation.x * cameraSize.x + up * relativeLocation.y * cameraSize.y)
 
     return new Ray(position, direction)
   }
