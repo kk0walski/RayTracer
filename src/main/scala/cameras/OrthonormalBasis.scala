@@ -3,9 +3,9 @@ package cameras
 import vecmath.Vector
 
 class OrthonormalBasis(eye: Vector, lookAt: Vector, up: Vector) {
-  val v = w ** u
-  w = w.normalize
   var w = eye - lookAt
+  w = w.normalize
+  val v = w ** u
   u = u.normalize
   var u = up ** w
 
