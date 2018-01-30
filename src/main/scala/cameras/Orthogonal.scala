@@ -2,7 +2,7 @@ package cameras
 
 import vecmath.{Ray, Vector, Vector2}
 
-class Orthogonal(var eyePosition: Vector, var lookAt: Vector, var cameraSize: Vector2, var up: Vector = new Vector(0, 0, 0)) extends ICamera {
+class Orthogonal(var eyePosition: Vector, var lookAt: Vector, var cameraSize: Vector2, var up: Vector) extends ICamera {
   override def GetRayTo(relativeLocation: Vector2): Ray = {
     // Kierunek w którym skierowane są wszystkie promienie
     // wychodzące z kamery.
