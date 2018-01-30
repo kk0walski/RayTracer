@@ -1,7 +1,7 @@
-import java.awt.{BorderLayout, Color}
+import java.awt.{BorderLayout, Color, Dimension}
 import javax.swing.{JFrame, WindowConstants}
 
-import cameras.{Orthogonal, Size}
+import cameras.Orthogonal
 import shapes.Sphere
 import tracing.{Raytracer, World}
 import vecmath.{Vector, Vector2}
@@ -16,10 +16,11 @@ object Program {
 
     val tracer = new Raytracer()
 
-    val image = tracer.raytrace(world, camera, new Size(256, 256))
+    val image = tracer.raytrace(world, camera, new Dimension(256, 256))
 
     val frame = new JFrame()
     frame.setLayout(new BorderLayout())
+    frame.setSize(new Dimension(800, 600))
     val panel = new ImagePanel(image)
     frame.add(panel, BorderLayout.CENTER)
     frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE)
