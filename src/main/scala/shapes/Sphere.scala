@@ -14,14 +14,14 @@ class Sphere(val center: Vector, val radius: Float, override val color: Color) e
     val c = distance.lengthSquared - (radius * radius)
     val disc = b * b - 4 * a * c
 
-    if (disc < 0) return (false, -1.0)
+    if (disc < 0) return (false, Double.MaxValue)
 
     val discSq = Math.sqrt(disc)
     val denom = 2 * a
 
     t = (-b - discSq) / denom
     if (t < Ray.Epsilon) t = (-b + discSq) / denom
-    if (t < Ray.Epsilon) return (false, -1.0)
+    if (t < Ray.Epsilon) return (false, Double.MaxValue)
 
     return (true, t)
   }
