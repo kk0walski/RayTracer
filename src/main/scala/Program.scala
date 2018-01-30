@@ -1,10 +1,10 @@
 import java.awt.{BorderLayout, Color, Dimension}
 import javax.swing.{JFrame, WindowConstants}
 
-import cameras.Orthogonal
+import cameras.Pinhole
 import shapes.Sphere
 import tracing.{Raytracer, World}
-import vecmath.{Vector, Vector2}
+import vecmath.Vector
 
 object Program {
   def main(args: Array[String]): Unit = {
@@ -12,7 +12,7 @@ object Program {
 
     world.objects = new Sphere(new Vector(-4, 0, 0), 2, Color.RED) :: new Sphere(new Vector(4, 0, 0), 2, Color.GREEN) :: new Sphere(new Vector(0, 0, 3), 2, Color.BLUE) :: world.objects
 
-    val camera = new Orthogonal(new Vector(0, 1, -8), new Vector(0, 0, 0), new Vector2(7, 7), new Vector(0, -1, 0))
+    val camera = new Pinhole(new Vector(0, 1, -8), new Vector(0, 0, 0), new Vector(0, -1, 0), 1)
 
     val tracer = new Raytracer()
 
