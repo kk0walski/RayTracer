@@ -4,7 +4,7 @@ import java.awt.Color
 
 import vecmath.Ray
 
-abstract class Shape {
+trait Shape {
   val color: Color
 
   def HitTest(ray: Ray, minDistance: Double): (Boolean, Double)
