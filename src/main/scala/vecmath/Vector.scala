@@ -39,7 +39,6 @@ class Vector(val x: Double, val y: Double, val z: Double) {
 
   override def toString = "Vector(%g, %g, %g)".format(x, y, z)
 }
-
 object Vector {
   // Vector constants
   val XAxis = new Vector(1.0, 0.0, 0.0)
@@ -49,7 +48,6 @@ object Vector {
 
   // Create a vector
   def apply(x: Double, y: Double, z: Double) = new Vector(x, y, z)
-
   // Extractor method
   def unapply(v: Vector) = Some(v.x, v.y, v.z)
 }

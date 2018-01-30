@@ -1,0 +1,5 @@
+package vecmath
+
+class Ray {
+
+}
