@@ -12,7 +12,7 @@ object Program {
 
     world.objects = new Sphere(new Vector(-2.5, 0, 0), 2, Color.RED) :: new Sphere(new Vector(2.5, 0, 0), 2, Color.GREEN) :: new Sphere(new Vector(0, 0, 2.5), 2, Color.BLUE) :: world.objects
 
-    val camera = new Orthogonal(new Vector(0, 0, -5), 0, new Vector2(5, 5))
+    val camera = new Orthogonal(new Vector(0, 0, -5), new Vector(0, 0, 0), new Vector2(5, 5), new Vector(0, 1, 0.29))
 
     val tracer = new Raytracer()
 
