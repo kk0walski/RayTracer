@@ -5,10 +5,10 @@ import java.awt.Color
 import shapes.Shape
 import vecmath.Ray
 
-class World(private var backgroundColor: Color = Color.BLUE) {
-  var objects: List[Shape]
+class World(var backgroundColor: Color = Color.BLUE) {
+  var objects = List[Shape]()
 
-  def hitInfo(ray: Ray): HitInfo = {
+  def traceRay(ray: Ray): HitInfo = {
     val result = new HitInfo()
     var minimalDistance = Ray.Huge
     var hitDistance = 0.0
