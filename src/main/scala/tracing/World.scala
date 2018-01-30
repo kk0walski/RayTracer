@@ -12,7 +12,7 @@ class World(var backgroundColor: Color = Color.BLUE) {
     val result = new HitInfo()
     var minimalDistance = Ray.Huge
     var hitDistance = 0.0
-    var test: (Boolean, Double) = (false, Double.MaxValue)
+    var test = (false, Double.MaxValue)
 
     for (obj <- objects) {
       test = obj.HitTest(ray, hitDistance)

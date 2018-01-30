@@ -1,4 +1,5 @@
-import java.awt.Color
+import java.awt.{BorderLayout, Color}
+import javax.swing.{JFrame, WindowConstants}
 
 import cameras.{Orthogonal, Size}
 import shapes.Sphere
@@ -16,5 +17,12 @@ object Program {
     val tracer = new Raytracer()
 
     val image = tracer.raytrace(world, camera, new Size(256, 256))
+
+    val frame = new JFrame()
+    frame.setLayout(new BorderLayout())
+    val panel = new ImagePanel(image)
+    frame.add(panel, BorderLayout.CENTER)
+    frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE)
+    frame.setVisible(true)
   }
 }
