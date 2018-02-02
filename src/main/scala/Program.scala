@@ -13,7 +13,7 @@ object Program {
     world.objects = new Sphere(new Vector(-4, 0, 0), 2, Color.RED) :: new Sphere(new Vector(4, 0, 0), 2, Color.GREEN) :: new Sphere(new Vector(0, 0, 3), 2, Color.BLUE) :: world.objects
     world.objects = new Plane(new Vector(0, -2, 0), new Vector(0, 1, 0), Color.GRAY) :: world.objects
 
-    val camera = new Pinhole(new Vector(0, 1, -8), new Vector(0, 0, 0), new Vector(0, -1, 0), 1)
+    val camera = new Pinhole(new Vector(0, 1, -8), new Vector(0, 0, 0), 1)
 
     val tracer = new Raytracer()
 
