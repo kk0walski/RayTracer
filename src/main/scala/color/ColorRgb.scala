@@ -1,3 +1,5 @@
+package color
+
 class ColorRgb (var r:Double, var g:Double, var b:Double) {
 
   def normalize():Unit = {
@@ -15,4 +17,5 @@ class ColorRgb (var r:Double, var g:Double, var b:Double) {
 }
 object ColorRgb{
   val White = new ColorRgb(1,1,1)
+  val Black = new ColorRgb(0,0,0)
 }

@@ -16,18 +16,26 @@ class World(var backgroundColor: Color = Color.BLUE) {
   var traingles:Array[Traingle] = null
 
   def traceRay(ray: Ray): HitInfo = {
-    val result = new HitInfo()
+    val result:HitInfo = null
+    var normal = Vector.Zero
     var minimalDistance = Ray.Huge
-    var hitDistance = 0.0
-    var test = (false, Double.MaxValue)
+    var lastDistance = 0.0
+    var test = (false, Double.MaxValue, Vector.Zero)
 
     for (obj <- objects) {
-      test = obj.HitTest(ray, hitDistance)
-      hitDistance = test._2
-      if (test._1 && test._2 < minimalDistance) {
-        minimalDistance = hitDistance
-        result.hitObject = true
-        result.color = obj.color
+      test = obj.HitTest(ray, lastDistance, normal)
+      lastDistance = test._2
+      normal = test._3
+      if (test._1 && lastDistance < minimalDistance) {
+        minimalDistance = lastDistance
+        result.hitObject = obj
+        result.normal = normal
+      }
+      if (result.hitObject != null)
+      {
+        result.hitPoint = ray.origin + ray.direction*minimalDistance
+        result.ray = ray
+        result.world = this
       }
     }
     return result

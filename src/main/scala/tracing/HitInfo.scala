@@ -1,7 +1,8 @@
 package tracing
 
-import java.awt.Color
+import shapes.Shape
+import vecmath.{Ray, Vector}
 
-class HitInfo(var hitObject: Boolean = false, var color: Color = Color.BLUE) {
+class HitInfo(var hitObject: Shape, var world: World, var normal:Vector, var hitPoint:Vector, var ray:Ray) {
 
 }

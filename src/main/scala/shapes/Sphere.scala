@@ -5,7 +5,7 @@ import java.awt.Color
 import vecmath.{Ray, Vector}
 
 class Sphere(val center: Vector, val radius: Float, override val color: Color) extends Shape {
-  override def HitTest(ray: Ray, minDistance: Double): (Boolean, Double) = {
+  override def HitTest(ray: Ray, distance: Double, normal:Vector): (Boolean, Double, Vector) = {
     var t = 0.0
     val distance = ray.origin - center
 
@@ -14,15 +14,17 @@ class Sphere(val center: Vector, val radius: Float, override val color: Color) e
     val c = distance.lengthSquared - (radius * radius)
     val disc = b * b - 4 * a * c
 
-    if (disc < 0) return (false, Double.MaxValue)
+    if (disc < 0) return (false, Double.MaxValue, Vector.Zero)
 
     val discSq = Math.sqrt(disc)
     val denom = 2 * a
 
     t = (-b - discSq) / denom
     if (t < Ray.Epsilon) t = (-b + discSq) / denom
-    if (t < Ray.Epsilon) return (false, Double.MaxValue)
+    if (t < Ray.Epsilon) return (false, Double.MaxValue, Vector.Zero)
 
-    return (true, t)
+    val hitPoint = (ray.origin + ray.direction * t)
+    val outNormal = (hitPoint - center).normalize
+    return (true, t, outNormal)
   }
 }

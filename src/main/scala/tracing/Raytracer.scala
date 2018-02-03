@@ -23,8 +23,8 @@ class Raytracer {
         val info = world.traceRay(ray)
 
         var color = Color.BLUE
-        if (info.hitObject) {
-          color = info.color
+        if (info.hitObject == null) {
+          color = info.world.backgroundColor
         }
         else {
           color = world.backgroundColor
