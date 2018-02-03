@@ -1,10 +1,9 @@
 package shapes
 
-import java.awt.Color
-
+import materials.IMaterial
 import vecmath.{Ray, Vector}
 
-class TraingleMesh(triangles:List[Traingle], override val color:Color) extends Shape {
+class TraingleMesh(triangles:List[Traingle], override val material: IMaterial) extends Shape {
   override def HitTest(ray: Ray, distance: Double, normal:Vector): (Boolean, Double, Vector) = {
     var result = false
     var minimalDistance = Ray.Huge

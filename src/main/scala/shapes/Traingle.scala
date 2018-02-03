@@ -1,11 +1,11 @@
 package shapes
 
-import java.awt.Color
 import java.util.Scanner
 
+import materials.{IMaterial, PerfectDiffuse}
 import vecmath.{Ray, Vector}
 
-class Traingle(var x: Vector, var y: Vector, var z: Vector, override val color: Color) extends Shape {
+class Traingle(var x: Vector, var y: Vector, var z: Vector, override val material: IMaterial) extends Shape {
 
   override def HitTest(ray: Ray, distance: Double, normal:Vector): (Boolean, Double, Vector) = {
     val n = (y - x) ** (z - x)
@@ -24,12 +24,12 @@ class Traingle(var x: Vector, var y: Vector, var z: Vector, override val color: 
   }
 }
 object Traingle{
-  val Zero = new Traingle(Vector.Zero, Vector.Zero, Vector.Zero, Color.BLACK)
+  val Zero = new Traingle(Vector.Zero, Vector.Zero, Vector.Zero, new PerfectDiffuse(color.ColorRgb.Black))
 
   def readFromFile(s:Scanner, vertices:Array[Vector]): Traingle ={
     val i1 = s.nextInt()
     val i2 = s.nextInt()
     val i3 = s.nextInt()
-    return  new Traingle(vertices(i1), vertices(i2), vertices(i3), Color.BLACK)
+    return  new Traingle(vertices(i1), vertices(i2), vertices(i3),new PerfectDiffuse(color.ColorRgb.Black))
   }
 }

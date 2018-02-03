@@ -1,12 +1,9 @@
 package color
+import java.awt.Color
 
 class ColorRgb (var r:Double, var g:Double, var b:Double) {
 
-  def normalize():Unit = {
-    this.r /= 255.0
-    this.g /= 255.0
-    this.b /= 255.0
-  }
+  def this(color:Color) = this(color.getRed()/255.0, color.getGreen()/255.0, color.getBlue()/255.0)
   def +(color:ColorRgb) = new ColorRgb(r + color.r, g + color.g, b + color.b)
 
   def *(color:ColorRgb) = new ColorRgb(r*color.r, g*color.g, b*color.b)

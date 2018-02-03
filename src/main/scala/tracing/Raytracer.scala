@@ -31,8 +31,7 @@ class Raytracer {
     var finalColor = ColorRgb.Black
 
     if(info.hitObject == null){
-      finalColor = new ColorRgb(world.backgroundColor.getRed(), world.backgroundColor.getGreen(), world.backgroundColor.getBlue())
-      finalColor.normalize()
+      finalColor = new ColorRgb(world.backgroundColor)
       return finalColor
     }
     val material = info.hitObject.material

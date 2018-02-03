@@ -18,7 +18,7 @@ class World(var backgroundColor: Color = Color.BLUE) {
   var traingles:Array[Traingle] = null
 
   def traceRay(ray: Ray): HitInfo = {
-    val result:HitInfo = null
+    val result = new HitInfo()
     var normal = Vector.Zero
     var minimalDistance = Ray.Huge
     var lastDistance = 0.0
