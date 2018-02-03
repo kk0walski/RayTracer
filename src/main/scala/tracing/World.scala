@@ -2,18 +2,18 @@ package tracing
 
 import java.awt.Color
 import java.io.{BufferedReader, FileReader}
-import java.util.{ArrayList, Locale, Scanner}
+import java.util.{Locale, Scanner}
 
 import common.Comments
-import shapes.Shape
+import shapes.{Shape, Traingle}
 import vecmath.{Ray, Vector}
 
 class World(var backgroundColor: Color = Color.BLUE) {
   val path = "C:/Users/karol/IdeaProjects/RayTracer/Sceny/"
   val path_temp = "C:/Users/karol/IdeaProjects/RayTracer/temp/"
   var objects = List[Shape]()
-  var vertices:Array[Vector]
-  var adj_triangles:ArrayList[Integer]
+  var vertices:Array[Vector] = null
+  var traingles:Array[Traingle] = null
 
   def traceRay(ray: Ray): HitInfo = {
     val result = new HitInfo()
@@ -46,6 +46,7 @@ class World(var backgroundColor: Color = Color.BLUE) {
       // skip keyword
       s.next()
       val vert_count = s.nextInt()
+      vertices = new Array[Vector](vert_count)
       for(i <- 0 to vert_count){
         vertices(i) = Vector.Zero
         vertices(i).x = s.nextDouble()
@@ -57,7 +58,14 @@ class World(var backgroundColor: Color = Color.BLUE) {
       s.next()
       val trg_count = s.nextInt()
       // Create data for computing averaged normals
-      adj_triangles = new ArrayList[Integer](trg_count)
+      traingles = new Array[Traingle](trg_count)
+      for(i <- 0 to trg_count)
+        {
+          traingles(i) = Traingle.readFromFile(s,vertices)
+        }
+    }
+    finally {
+      s.close()
     }
   }
 }
