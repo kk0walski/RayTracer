@@ -1,6 +1,6 @@
 package vecmath
 
-class Vector(val x: Double, val y: Double, val z: Double) {
+class Vector(var x: Double, var y: Double, var z: Double) {
   // Add two vectors
   def +(v: Vector) = new Vector(x + v.x, y + v.y, z + v.z)
 
