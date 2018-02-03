@@ -7,6 +7,8 @@ import cameras.ICamera
 import color.ColorRgb
 import vecmath.{Ray, Vector2}
 
+import scala.util.control.Breaks._
+
 
 class Raytracer {
 
@@ -26,6 +28,7 @@ class Raytracer {
       }
     return bmp
   }
+
   def ShadeRay(world: World, ray: Ray):ColorRgb = {
     val info = world.traceRay(ray)
     var finalColor = ColorRgb.Black
@@ -37,7 +40,14 @@ class Raytracer {
     val material = info.hitObject.material
 
     for(light <- world.lights){
-      finalColor += material.Radiance(light, info)
+      breakable{
+        if(world.anyObstacleBetween(info.hitPoint, light.position)){
+          break
+        }else
+        {
+          finalColor += material.Radiance(light, info)
+        }
+      }
     }
     return finalColor
   }

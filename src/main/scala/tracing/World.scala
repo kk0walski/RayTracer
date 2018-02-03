@@ -42,7 +42,23 @@ class World(var backgroundColor: Color = Color.BLUE) {
     }
     return result
   }
+  def anyObstacleBetween(pointA:Vector, pointB:Vector): Boolean =
+  {
+    val vectorAB = pointB - pointA
+    val distAB = vectorAB.length
+    var currDistance = Ray.Huge
+    var test:(Boolean, Double, Vector) = null
+    var ignored = Vector.Zero
+    val ray = new Ray(pointA, vectorAB)
 
+    for(obj <- objects){
+      test = obj.HitTest(ray,currDistance,ignored)
+      currDistance = test._2
+      ignored = test._3
+      if(test._1 && currDistance < distAB) return true
+    }
+    return false
+  }
   def loadFromFile(fname:String): Unit = {
     val path_file = path + fname
     val tm_fname = path_temp + fname + ".tmp"
