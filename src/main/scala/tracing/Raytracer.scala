@@ -4,7 +4,8 @@ import java.awt.image.BufferedImage
 import java.awt.{Color, Dimension}
 
 import cameras.ICamera
-import vecmath.Vector2
+import color.ColorRgb
+import vecmath.{Ray, Vector2}
 
 
 class Raytracer {
@@ -20,17 +21,32 @@ class Raytracer {
         )
 
         val ray = camera.GetRayTo(pictureCoordinates)
-        val info = world.traceRay(ray)
 
-        var color = Color.BLUE
-        if (info.hitObject == null) {
-          color = info.world.backgroundColor
-        }
-        else {
-          color = world.backgroundColor
-        }
-        bmp.setRGB(x, y, color.getRGB)
+        bmp.setRGB(x, y, (StripColor(ShadeRay(world, ray))).getRGB())
       }
     return bmp
+  }
+  def ShadeRay(world: World, ray: Ray):ColorRgb = {
+    val info = world.traceRay(ray)
+    var finalColor = ColorRgb.Black
+
+    if(info.hitObject == null){
+      finalColor = new ColorRgb(world.backgroundColor.getRed(), world.backgroundColor.getGreen(), world.backgroundColor.getBlue())
+      finalColor.normalize()
+      return finalColor
+    }
+    val material = info.hitObject.material
+
+    for(light <- world.lights){
+      finalColor += material.Radiance(light, info)
+    }
+    return finalColor
+  }
+  def StripColor(rgb: ColorRgb): Color =
+  {
+    rgb.r = if(rgb.r < 0) 0 else if(rgb.r > 1) 1 else rgb.r;
+    rgb.g = if(rgb.g < 0) 0 else if(rgb.g > 1) 1 else rgb.g;
+    rgb.b = if(rgb.b < 0) 0 else if(rgb.b > 1) 1 else rgb.b;
+    return new Color((rgb.r*255).toInt, (rgb.g*255).toInt, (rgb.b*255).toInt)
   }
 }

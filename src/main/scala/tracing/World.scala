@@ -5,6 +5,7 @@ import java.io.{BufferedReader, FileReader}
 import java.util.{Locale, Scanner}
 
 import common.Comments
+import lights.PointLight
 import shapes.{Shape, Traingle}
 import vecmath.{Ray, Vector}
 
@@ -12,6 +13,7 @@ class World(var backgroundColor: Color = Color.BLUE) {
   val path = "C:/Users/karol/IdeaProjects/RayTracer/Sceny/"
   val path_temp = "C:/Users/karol/IdeaProjects/RayTracer/temp/"
   var objects = List[Shape]()
+  var lights = List[PointLight]()
   var vertices:Array[Vector] = null
   var traingles:Array[Traingle] = null
 

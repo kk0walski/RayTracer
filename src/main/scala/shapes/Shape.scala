@@ -1,11 +1,10 @@
 package shapes
 
-import java.awt.Color
-
+import materials.IMaterial
 import vecmath.{Ray, Vector}
 
 trait Shape {
-  val color: Color
+  val material: IMaterial
 
   def HitTest(ray: Ray, distance: Double, normal:Vector): (Boolean, Double, Vector)
 }
