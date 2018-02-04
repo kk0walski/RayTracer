@@ -50,4 +50,10 @@ object Vector {
   def apply(x: Double, y: Double, z: Double) = new Vector(x, y, z)
   // Extractor method
   def unapply(v: Vector) = Some(v.x, v.y, v.z)
+
+  def reflect(vec: Vector, normal:Vector): Vector =
+  {
+    val dot = normal*vec
+    return normal*dot*2 - vec
+  }
 }

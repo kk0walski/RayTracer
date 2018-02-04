@@ -4,7 +4,7 @@ import javax.swing.{JFrame, WindowConstants}
 import cameras.Pinhole
 import color.ColorRgb
 import lights.PointLight
-import materials.PerfectDiffuse
+import materials.Phong
 import shapes.{Plane, Sphere}
 import tracing.{Raytracer, World}
 import vecmath.Vector
@@ -13,10 +13,10 @@ object Program {
   def main(args: Array[String]): Unit = {
     val world = new World(Color.CYAN)
 
-    val redMat = new PerfectDiffuse(new ColorRgb(Color.RED))
-    val greenMat = new PerfectDiffuse(new ColorRgb(Color.GREEN))
-    val blueMat = new PerfectDiffuse(new ColorRgb(Color.BLUE))
-    val grayMat = new PerfectDiffuse(new ColorRgb(Color.GRAY))
+    val redMat = new Phong(new ColorRgb(new Color(240,128,128)), 0.8, 1, 30)
+    val greenMat = new Phong(new ColorRgb(new Color(144,238,144)), 0.8, 1, 30)
+    val blueMat = new Phong(new ColorRgb(new Color(173,216,230)), 0.8, 1, 30)
+    val grayMat = new Phong(new ColorRgb(Color.GRAY), 0.8, 1, 30)
 
     world.objects = new Sphere(new Vector(-4, 0, 0), 2, redMat) :: new Sphere(new Vector(4, 0, 0), 2, greenMat) :: new Sphere(new Vector(0, 0, 3), 2, blueMat) :: world.objects
     world.objects = new Plane(new Vector(0, -2, 0), new Vector(0, 1, 0), grayMat) :: world.objects
