@@ -3,7 +3,7 @@ package shapes
 import materials.IMaterial
 import vecmath.{Ray, Vector}
 
-class Sphere(val center: Vector, val radius: Float, override val material: IMaterial) extends Shape {
+class Sphere(val center: Vector, val radius: Float, override var material: IMaterial) extends Shape {
   override def HitTest(ray: Ray, distance: Double, normal:Vector): (Boolean, Double, Vector) = {
     var t = 0.0
     val distance = ray.origin - center

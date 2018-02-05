@@ -2,10 +2,13 @@ package shapes
 
 import java.util.Scanner
 
+import color.ColorRgb
 import materials.{IMaterial, PerfectDiffuse}
 import vecmath.{Ray, Vector}
 
-class Traingle(var x: Vector, var y: Vector, var z: Vector, override val material: IMaterial) extends Shape {
+class Traingle(var x: Vector, var y: Vector, var z: Vector, override var material: IMaterial) extends Shape {
+
+  def this(x:Vector, y:Vector, z:Vector) = this(x,y,z, new PerfectDiffuse(ColorRgb.Black))
 
   override def HitTest(ray: Ray, distance: Double, normal:Vector): (Boolean, Double, Vector) = {
     val n = (y - x) ** (z - x)

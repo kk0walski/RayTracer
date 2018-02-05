@@ -6,7 +6,7 @@ import java.util.{Locale, Scanner}
 
 import common.Comments
 import lights.PointLight
-import shapes.{Shape, Traingle}
+import shapes.{Shape, Traingle, TraingleMesh}
 import vecmath.{Ray, Vector}
 
 class World(var backgroundColor: Color = Color.BLUE) {
@@ -16,6 +16,7 @@ class World(var backgroundColor: Color = Color.BLUE) {
   var lights = List[PointLight]()
   var vertices:Array[Vector] = null
   var traingles:Array[Traingle] = null
+  var parts:Array[TraingleMesh] = null
 
   def traceRay(ray: Ray): HitInfo = {
     val result = new HitInfo()
@@ -89,6 +90,9 @@ class World(var backgroundColor: Color = Color.BLUE) {
         {
           traingles(i) = Traingle.readFromFile(s,vertices)
         }
+      s.next()
+      val part_count = s.nextInt()
+      parts = new Array[TraingleMesh](part_count)
     }
     finally {
       s.close()

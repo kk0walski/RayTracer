@@ -1,9 +1,13 @@
 package shapes
 
-import materials.IMaterial
+import color.ColorRgb
+import materials.{IMaterial, PerfectDiffuse}
 import vecmath.{Ray, Vector}
 
-class TraingleMesh(triangles:List[Traingle], override val material: IMaterial) extends Shape {
+class TraingleMesh(var triangles:List[Traingle], override var material: IMaterial) extends Shape {
+
+  def this(traingles:List[Traingle]) = this(traingles, new PerfectDiffuse(ColorRgb.Black))
+
   override def HitTest(ray: Ray, distance: Double, normal:Vector): (Boolean, Double, Vector) = {
     var result = false
     var minimalDistance = Ray.Huge
