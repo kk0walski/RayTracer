@@ -11,7 +11,7 @@ class Orthogonal(var origin: Vector, var lookAt: Vector, var up: Vector,  var ca
   }
 
   def rayDirection(v: Vector2): Vector = {
-    return onb * (new Vector(v.x*10, v.y*10, 0))
+    return onb * (new Vector(v.x*cameraSize.x, v.y*cameraSize.y, 0))
   }
 }
 

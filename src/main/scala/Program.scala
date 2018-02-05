@@ -23,7 +23,7 @@ object Program {
     world.lights = new PointLight(new Vector(0,5,-5), new ColorRgb(Color.WHITE)) :: world.lights
 
     val tracer = new Raytracer()
-    val camera = new Orthogonal(new Vector(0, 1, -8), new Vector(0, 0, 0), new Vector(0, -1, 0), new Vector2(800, 600))
+    val camera = new Orthogonal(new Vector(0, 1, -8), new Vector(0, 0, 0), new Vector(0, -1, 0), new Vector2(10, 10))
     val image = tracer.raytrace(world, camera, new Dimension(800, 600))
 
     val frame = new JFrame()
