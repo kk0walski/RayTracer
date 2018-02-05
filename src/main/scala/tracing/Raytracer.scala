@@ -8,7 +8,7 @@ import color.ColorRgb
 import vecmath.{Ray, Vector2}
 
 
-class Raytracer {
+class Raytracer(maxDeph:Int) {
 
   def raytrace(world: World, camera: ICamera, size: Dimension): BufferedImage = {
     val bmp = new BufferedImage(size.width, size.height, BufferedImage.TYPE_INT_RGB)
@@ -22,13 +22,15 @@ class Raytracer {
 
         val ray = camera.GetRayTo(pictureCoordinates)
 
-        bmp.setRGB(x, y, (StripColor(ShadeRay(world, ray))).getRGB())
+        bmp.setRGB(x, y, (StripColor(ShadeRay(world, ray, 0))).getRGB())
       }
     return bmp
   }
 
-  def ShadeRay(world: World, ray: Ray):ColorRgb = {
+  def ShadeRay(world: World, ray: Ray, currentDepth:Int):ColorRgb = {
+    if(currentDepth > maxDeph) return ColorRgb.Black
     val info = world.traceRay(ray)
+    info.depht = currentDepth+1
     var finalColor = ColorRgb.Black
 
     if(info.hitObject == null){

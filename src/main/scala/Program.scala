@@ -4,7 +4,7 @@ import javax.swing.{JFrame, WindowConstants}
 import cameras.Pinhole
 import color.ColorRgb
 import lights.PointLight
-import materials.Phong
+import materials.Reflective
 import shapes.{Plane, Sphere}
 import tracing.{Raytracer, World}
 import vecmath.Vector
@@ -13,16 +13,16 @@ object Program {
   def main(args: Array[String]): Unit = {
     val world = new World(Color.CYAN)
 
-    val redMat = new Phong(new ColorRgb(new Color(240,128,128)), 0.8, 1, 30)
-    val greenMat = new Phong(new ColorRgb(new Color(144,238,144)), 0.8, 1, 30)
-    val blueMat = new Phong(new ColorRgb(new Color(173,216,230)), 0.8, 1, 30)
-    val grayMat = new Phong(new ColorRgb(Color.GRAY), 0.8, 1, 30)
+    val redMat = new Reflective(new ColorRgb(new Color(240,128,128)), 0.4, 1, 300, 0.6)
+    val greenMat = new Reflective(new ColorRgb(new Color(144,238,144)), 0.4, 1, 300, 0.6)
+    val blueMat = new Reflective(new ColorRgb(new Color(173,216,230)), 0.4, 1, 300, 0.6)
+    val grayMat = new Reflective(new ColorRgb(Color.GRAY), 0.4, 1, 300, 0.6)
 
     world.objects = new Sphere(new Vector(-4, 0, 0), 2, redMat) :: new Sphere(new Vector(4, 0, 0), 2, greenMat) :: new Sphere(new Vector(0, 0, 3), 2, blueMat) :: world.objects
     world.objects = new Plane(new Vector(0, -2, 0), new Vector(0, 1, 0), grayMat) :: world.objects
     world.lights = new PointLight(new Vector(0,5,-5), new ColorRgb(Color.WHITE)) :: world.lights
 
-    val tracer = new Raytracer()
+    val tracer = new Raytracer(3)
     val camera = new Pinhole(new Vector(0, 1, -8), new Vector(0, 0, 0), new Vector(0, -1, 0), 1)
     val image = tracer.raytrace(world, camera, new Dimension(800, 600))
 
