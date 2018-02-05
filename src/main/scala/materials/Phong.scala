@@ -1,22 +1,32 @@
 package materials
 
 import color.ColorRgb
-import lights.PointLight
-import tracing.HitInfo
+import tracing.{HitInfo, Raytracer}
 import vecmath.Vector
 
+import scala.util.control.Breaks.{break, breakable}
+
 class Phong (materialColor:ColorRgb, diffuseCoef: Double, specular:Double, specularExponent:Double) extends IMaterial {
-  override def Radiance(light: PointLight, hit: HitInfo): ColorRgb = {
-    val inDirection = (light.position - hit.hitPoint).normalize
-    val diffuseFactor = inDirection*hit.normal
-    var result = ColorRgb.Black
+  override def Shade(tracer:Raytracer, hit: HitInfo): ColorRgb =
+  {
+    var totalColor = ColorRgb.Black;
+    for (light <- hit.world.lights)
+    {
+      breakable{
+        val inDirection = (light.position - hit.hitPoint).normalize;
+        val diffuseFactor = inDirection*hit.normal
+        if (diffuseFactor < 0) { break(); }
+        if (hit.world.anyObstacleBetween(hit.hitPoint, light.position))
+        { break(); }
+        var result = light.color * materialColor * diffuseFactor * diffuseCoef
+        val phongFactor = PhongFactor(inDirection, hit.normal, -hit.ray.direction)
 
-    if(diffuseFactor < 0) return result
-    result = light.color * materialColor * diffuseFactor * diffuseCoef
-    val phongFactor = PhongFactor(inDirection, hit.normal, -hit.ray.direction)
+        if(phongFactor != 0)result += materialColor*specular*phongFactor
 
-    if(phongFactor != 0)result += materialColor*specular*phongFactor
-    return result
+        totalColor += result
+      }
+    }
+    return totalColor;
   }
   def PhongFactor(inDirection:Vector, normal:Vector, toCameraDirection:Vector):Double = {
     val reflected = Vector.reflect(inDirection, normal)

@@ -1,9 +1,8 @@
 package materials
 
 import color.ColorRgb
-import lights.PointLight
-import tracing.HitInfo
+import tracing.{HitInfo, Raytracer}
 
 trait IMaterial {
-  def Radiance(light:PointLight, hit:HitInfo):ColorRgb
+  def Shade(tracer:Raytracer, hit:HitInfo):ColorRgb
 }
