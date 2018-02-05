@@ -2,23 +2,16 @@ package cameras
 
 import vecmath.{Ray, Vector, Vector2}
 
-class Orthogonal(var eyePosition: Vector, var lookAt: Vector, var cameraSize: Vector2, var up: Vector) extends ICamera {
+class Orthogonal(var origin: Vector, var lookAt: Vector, var up: Vector,  var cameraSize: Vector2) extends ICamera {
+
+  val onb = new OrthonormalBasis(origin, lookAt, up)
+
   override def GetRayTo(relativeLocation: Vector2): Ray = {
-    // Kierunek w którym skierowane są wszystkie promienie
-    // wychodzące z kamery.
-    // Otrzymany prostymi funkcjami trygonometrycznymi.
-    var direction = lookAt - eyePosition
-    var prostopadly = direction ** up
+    return new Ray(rayDirection(relativeLocation),(lookAt - origin).normalize)
+  }
 
-    // Kierunek promienia zawsze musi być znormalizowany
-    direction = direction.normalize
-    prostopadly = prostopadly.normalize
-
-    // Jak bardzo początek promienia jest oddalony od
-    // położenia kamery
-    val position = eyePosition + (prostopadly * relativeLocation.x * cameraSize.x + up * relativeLocation.y * cameraSize.y)
-
-    return new Ray(position, direction)
+  def rayDirection(v: Vector2): Vector = {
+    return onb * (new Vector(v.x*10, v.y*10, 0))
   }
 }
 
